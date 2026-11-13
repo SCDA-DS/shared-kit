@@ -45,6 +45,9 @@ describe('ui', () => {
     expect(toolUrl('cargo', off)).toBe('http://localhost:5171');
     expect(toolUrl('cargo', { ...off, platformDomain: 'example.com' })).toBe('https://cargo.example.com');
     expect(toolUrl('hub', { ...off, platformDomain: 'example.com' })).toBe('https://example.com');
+    const t = { ...off, platformDomain: 'example.com', toolUrlTemplate: 'https://scda-{id}.pages.dev' };
+    expect(toolUrl('market', t)).toBe('https://scda-market.pages.dev');
+    expect(toolUrl('hub', t)).toBe('https://scda-hub.pages.dev');
   });
   it('tool registry has unique ids, ports and subdomains', () => {
     expect(new Set(TOOLS.map((t) => t.id)).size).toBe(TOOLS.length);

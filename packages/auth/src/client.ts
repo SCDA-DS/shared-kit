@@ -8,6 +8,11 @@ export interface PlatformEnv {
   cookieDomain?: string;
   /** e.g. "example.com" — used to build tool URLs. Empty = localhost ports. */
   platformDomain?: string;
+  /**
+   * Overrides tool URLs before a custom domain exists, e.g. "https://scda-{id}.pages.dev".
+   * Placeholders: {id} (hub, cargo, fleet…) and {sub} (subdomain, "" for the hub).
+   */
+  toolUrlTemplate?: string;
 }
 
 export const isConfigured = (env: PlatformEnv) => !!env.supabaseUrl && !!env.supabaseAnonKey;

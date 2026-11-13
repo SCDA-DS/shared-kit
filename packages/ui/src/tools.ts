@@ -16,10 +16,11 @@ export const TOOLS: ToolInfo[] = [
 
 export const PLATFORM_NAME = 'SC Org Tools';
 
-/** Production: https://<sub>.<domain> (hub on the apex). Local: http://localhost:<port>. */
+/** Template if set (e.g. pages.dev), else https://<sub>.<domain> (hub on the apex), else http://localhost:<port>. */
 export function toolUrl(id: ToolId, env: PlatformEnv): string {
   const t = TOOLS.find((x) => x.id === id);
   if (!t) return '/';
+  if (env.toolUrlTemplate) return env.toolUrlTemplate.replaceAll('{id}', t.id).replaceAll('{sub}', t.sub);
   if (env.platformDomain) return `https://${t.sub ? t.sub + '.' : ''}${env.platformDomain}`;
   return `http://localhost:${t.port}`;
 }
