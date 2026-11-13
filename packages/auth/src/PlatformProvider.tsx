@@ -1,7 +1,10 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import type { Session, SupabaseClient, User } from '@supabase/supabase-js';
 import type { Org, OrgAccess, OrgMembership, Profile } from '@orgtools/sc-data';
-import { getSupabase, isConfigured, readCookie, signInWithDiscord, writeCookie, type PlatformEnv } from './client';
+import {
+  addSigninMarker, claimSilentSignin, getSupabase, hasSigninMarker, isConfigured, needsSigninMarker, readCookie,
+  resetSilentSignin, signInWithDiscord, stripSigninMarker, writeCookie, type PlatformEnv,
+} from './client';
 
 const ORG_COOKIE = 'orgtools_org';
 
@@ -34,8 +37,16 @@ export function PlatformProvider({ env, children }: { env: PlatformEnv; children
   useEffect(() => {
     if (!sb) return;
     let alive = true;
+    // Arrived from another tool where the user is signed in?
+    const marked = typeof location !== 'undefined' && hasSigninMarker(location.hash);
+    if (marked) history.replaceState(history.state, '', stripSigninMarker(location.href));
     sb.auth.getSession().then(({ data }) => {
       if (!alive) return;
+      if (data.session) resetSilentSignin();
+      if (!data.session && marked && claimSilentSignin()) {
+        void signInWithDiscord(sb, location.href, { silent: true });
+        return; // stay "loading" while we bounce through Discord
+      }
       setSession(data.session);
       setLoading(false);
     });
@@ -47,6 +58,23 @@ export function PlatformProvider({ env, children }: { env: PlatformEnv; children
   }, [sb]);
 
   const userId = session?.user.id ?? null;
+
+  // Links to other tools carry a sign-in marker while signed in (see client.ts: cross-tool sign-in).
+  const signedIn = useRef(false);
+  signedIn.current = !!session;
+  useEffect(() => {
+    if (!sb || typeof document === 'undefined') return;
+    const onClick = (e: MouseEvent) => {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const a = (e.target as Element | null)?.closest?.('a[href]') as HTMLAnchorElement | null;
+      if (!a || (a.target && a.target !== '_self')) return;
+      if (!needsSigninMarker(a.href, location.href, env, signedIn.current)) return;
+      e.preventDefault();
+      location.assign(addSigninMarker(a.href, location.href));
+    };
+    document.addEventListener('click', onClick);
+    return () => document.removeEventListener('click', onClick);
+  }, [sb, env]);
 
   const refreshOrgs = useCallback(async () => {
     if (!sb || !userId) {

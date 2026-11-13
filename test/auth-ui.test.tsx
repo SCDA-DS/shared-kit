@@ -75,3 +75,44 @@ describe('ui', () => {
     expect(screen.queryByText(/Supabase isn't configured/)).toBeNull();
   });
 });
+
+describe('cross-tool sign-in', () => {
+  const env = { supabaseUrl: 'https://x.supabase.co', supabaseAnonKey: 'k', toolUrlTemplate: 'https://scda-{id}.pages.dev' };
+  const here = 'https://scda-hub.pages.dev/';
+
+  it('recognises other tool origins from the URL template', async () => {
+    const { toolOriginPattern } = await import('@orgtools/auth');
+    const re = toolOriginPattern(env)!;
+    expect(re.test('https://scda-cargo.pages.dev')).toBe(true);
+    expect(re.test('https://scda-cargo.pages.dev.evil.com')).toBe(false);
+    expect(re.test('https://evil.pages.dev')).toBe(false);
+    expect(toolOriginPattern({ supabaseUrl: '', supabaseAnonKey: '' })).toBeNull();
+  });
+
+  it('marks links to other tools only while signed in and without a shared cookie domain', async () => {
+    const { needsSigninMarker } = await import('@orgtools/auth');
+    expect(needsSigninMarker('https://scda-cargo.pages.dev/', here, env, true)).toBe(true);
+    expect(needsSigninMarker('https://scda-cargo.pages.dev/', here, env, false)).toBe(false);
+    expect(needsSigninMarker('/settings', here, env, true)).toBe(false); // same tool
+    expect(needsSigninMarker('https://uexcorp.space', here, env, true)).toBe(false);
+    expect(needsSigninMarker('https://scda-cargo.pages.dev/', here, { ...env, cookieDomain: '.example.com' }, true)).toBe(false);
+  });
+
+  it('adds and strips the marker without disturbing other hash params', async () => {
+    const { addSigninMarker, stripSigninMarker, hasSigninMarker } = await import('@orgtools/auth');
+    const marked = addSigninMarker('https://scda-cargo.pages.dev/#tab=ships', here);
+    expect(hasSigninMarker(new URL(marked).hash)).toBe(true);
+    expect(stripSigninMarker(marked)).toBe('https://scda-cargo.pages.dev/#tab=ships');
+    expect(stripSigninMarker(addSigninMarker('https://scda-cargo.pages.dev/x', here))).toBe('https://scda-cargo.pages.dev/x');
+  });
+
+  it('tries the silent Discord bounce once per tab', async () => {
+    const { claimSilentSignin, resetSilentSignin } = await import('@orgtools/auth');
+    const store = new Map<string, string>();
+    const s = { getItem: (k: string) => store.get(k) ?? null, setItem: (k: string, v: string) => void store.set(k, v), removeItem: (k: string) => void store.delete(k) };
+    expect(claimSilentSignin(s)).toBe(true);
+    expect(claimSilentSignin(s)).toBe(false);
+    resetSilentSignin(s);
+    expect(claimSilentSignin(s)).toBe(true);
+  });
+});
