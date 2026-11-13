@@ -1,0 +1,30 @@
+{
+  "name": "@orgtools/shared-kit",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.2.0",
+    "@supabase/supabase-js": "^2.119.0",
+    "@supabase/ssr": "^0.12.7",
+    "@types/node": "^26.6.6",
+    "vite": "^8.3.8",
+    "vitest": "^5.1.0",
+    "jsdom": "^31.0.0",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.10",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@electric-sql/pglite": "^0.5.16",
+    "@electric-sql/pglite-socket": "^0.2.19"
+  }
+}

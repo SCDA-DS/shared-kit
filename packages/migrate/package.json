@@ -1,0 +1,12 @@
+{
+  "name": "@orgtools/migrate",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "bin/migrate.mjs",
+  "dependencies": {
+    "postgres": "^4.1.1"
+  },
+  "bin": {
+    "orgtools-migrate": "bin/migrate.mjs"
+  }
+}
