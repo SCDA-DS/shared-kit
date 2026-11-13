@@ -116,3 +116,13 @@ describe('cross-tool sign-in', () => {
     expect(claimSilentSignin(s)).toBe(true);
   });
 });
+
+describe('footer', () => {
+  it('links to the Hub privacy policy and terms', async () => {
+    const { PlatformProvider } = await import('@orgtools/auth');
+    const { AppShell } = await import('@orgtools/ui');
+    render(<PlatformProvider env={{ supabaseUrl: '', supabaseAnonKey: '', toolUrlTemplate: 'https://scda-{id}.pages.dev' }}><AppShell tool="cargo"><p>x</p></AppShell></PlatformProvider>);
+    expect(screen.getByRole('link', { name: 'Privacy' })).toHaveAttribute('href', 'https://scda-hub.pages.dev/#privacy');
+    expect(screen.getByRole('link', { name: 'Terms' })).toHaveAttribute('href', 'https://scda-hub.pages.dev/#terms');
+  });
+});

@@ -68,7 +68,8 @@ export function AppShell({ tool, children }: { tool: ToolId; children: ReactNode
       </main>
       <footer className="ot-footer">
         Unofficial fan-made tools. Not affiliated with Cloud Imperium Games. Star Citizen® is a registered trademark of
-        Cloud Imperium Rights LLC.
+        Cloud Imperium Rights LLC. · <a href={`${toolUrl('hub', p.env)}/#privacy`}>Privacy</a> ·{' '}
+        <a href={`${toolUrl('hub', p.env)}/#terms`}>Terms</a>
       </footer>
     </>
   );
