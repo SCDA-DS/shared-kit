@@ -11,10 +11,13 @@ describe('sc-data', () => {
   it('presets have the known SCU totals', () => {
     const total = (m: string) => SHIP_PRESETS.find((p) => p.model === m)!.grids.reduce((a, g) => a + gridCapacity(g), 0);
     expect(total('Drake Cutlass Black')).toBe(46);
-    expect(total('Crusader C2 Hercules')).toBe(696);
+    expect(total('Crusader C2 Hercules Starlifter')).toBe(696);
+    expect(total('MISC Freelancer')).toBe(66);
+    expect(total('RSI Constellation Mk IV Taurus')).toBe(174);
     expect(total('MISC Hull C')).toBe(4608);
     expect(total('Drake Caterpillar')).toBe(576);
-    expect(SHIP_PRESETS.every((p) => p.approximate)).toBe(true);
+    expect(SHIP_PRESETS.length).toBeGreaterThan(100);
+    expect(SHIP_PRESETS.every((p) => !p.approximate && p.grids.every((g) => g.w > 0 && g.l > 0 && g.h > 0))).toBe(true);
   });
   it('gridCapacity counts mask cells', () => {
     expect(gridCapacity({ name: 'g', w: 2, l: 2, h: 1, mask: '1010' })).toBe(2);
