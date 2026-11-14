@@ -1,3 +1,5 @@
+import { GENERATED_SHIPS } from './ships.generated';
+
 /** Standard container sizes in SCU. */
 export const CONTAINER_SIZES = [1, 2, 4, 8, 16, 24, 32] as const;
 export type ContainerSize = (typeof CONTAINER_SIZES)[number];
@@ -22,13 +24,13 @@ export interface CargoGrid {
   ox?: number; oy?: number; oz?: number;
 }
 
-export interface ShipPreset { model: string; grids: CargoGrid[]; approximate: boolean }
+export interface ShipPreset { model: string; maker?: string | null; grids: CargoGrid[]; approximate: boolean }
 
 const g = (name: string, w: number, l: number, h: number, max?: ContainerSize): CargoGrid =>
   max ? { name, w, l, h, max } : { name, w, l, h };
 
-/** Starter presets. SCU totals from community data; grid SHAPES ARE APPROXIMATE until built in the hold builder. */
-export const SHIP_PRESETS: ShipPreset[] = [
+/** Used only if the generated list is empty. Grid shapes are approximate. */
+const FALLBACK_PRESETS: ShipPreset[] = [
   { model: 'Drake Cutlass Black', grids: [g('Main hold', 2, 5, 4), g('Rear', 1, 3, 2)], approximate: true },
   { model: 'Crusader C1 Spirit', grids: [g('Fore', 2, 8, 2, 16), g('Aft', 2, 8, 2, 16)], approximate: true },
   { model: 'MISC Freelancer', grids: [g('Hold', 3, 11, 2)], approximate: true },
@@ -37,6 +39,14 @@ export const SHIP_PRESETS: ShipPreset[] = [
   { model: 'Drake Caterpillar', grids: [1, 2, 3, 4].map((i) => g(`Module ${i}`, 4, 9, 4)), approximate: true },
   { model: 'MISC Hull C', grids: [1, 2, 3, 4, 5, 6].map((i) => g(`Spindle ${i}`, 8, 12, 8)), approximate: true },
 ];
+
+/**
+ * Ship cargo-hold presets: real grid sizes from game data via the Star Citizen Wiki API
+ * (see ships.generated.ts, refreshed weekly by the "Update ship cargo grids" workflow).
+ */
+export const SHIP_PRESETS: ShipPreset[] = GENERATED_SHIPS.length
+  ? GENERATED_SHIPS.map((s) => ({ model: s.model, maker: s.maker, grids: s.grids, approximate: false }))
+  : FALLBACK_PRESETS;
 
 export function gridCapacity(grid: CargoGrid): number {
   if (!grid.mask) return grid.w * grid.l * grid.h;
