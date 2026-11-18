@@ -45,7 +45,7 @@ h1, h2, h3 { font-family: var(--ot-font-display); letter-spacing: 0.05em; margin
 .ot-menu { position: relative; }
 .ot-menu > summary { list-style: none; cursor: pointer; }
 .ot-menu > summary::-webkit-details-marker { display: none; }
-.ot-menu-list { position: absolute; left: 0; top: calc(100% + 6px); min-width: 240px; background: var(--ot-panel); border: 1px solid var(--ot-line-2); border-radius: 10px; padding: 6px; z-index: 20; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
+.ot-menu-list { position: absolute; left: 0; top: calc(100% + 6px); min-width: min(240px, calc(100vw - 24px)); max-width: calc(100vw - 24px); background: var(--ot-panel); border: 1px solid var(--ot-line-2); border-radius: 10px; padding: 6px; z-index: 20; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
 .ot-menu-list a { display: block; padding: 8px 10px; border-radius: 6px; text-decoration: none; color: var(--ot-text); }
 .ot-menu-list a:hover, .ot-menu-list a.current { background: var(--ot-panel-2); color: var(--ot-accent); }
 .ot-menu-list small { display: block; color: var(--ot-muted); font-size: 11px; }
