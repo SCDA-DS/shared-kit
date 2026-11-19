@@ -3,6 +3,7 @@ import { usePlatform } from '@orgtools/auth';
 import { PLATFORM_NAME, TOOLS, toolUrl, type ToolId } from './tools';
 import { Button, Note } from './components';
 import { ErrorBoundary, FeedbackButton, NotificationBell, useErrorReporting } from './services';
+import { Guide, GUIDES, openGuide } from './guide';
 
 export function AppShell({ tool, children }: { tool: ToolId; children: ReactNode }) {
   const p = usePlatform();
@@ -28,6 +29,9 @@ export function AppShell({ tool, children }: { tool: ToolId; children: ReactNode
           </nav>
         </details>
         <span className="ot-grow" />
+        {GUIDES[tool]?.length > 0 && (
+          <button className="ot-btn ot-help" aria-label="How this works" title="How this works" onClick={openGuide}>?</button>
+        )}
         {p.user && p.memberships.length > 0 && (
           <select
             className="ot-select"
@@ -67,6 +71,7 @@ export function AppShell({ tool, children }: { tool: ToolId; children: ReactNode
             </Note>
           </div>
         )}
+        <Guide tool={tool} />
         <ErrorBoundary tool={tool} sb={p.sb}>{children}</ErrorBoundary>
       </main>
       <footer className="ot-footer">

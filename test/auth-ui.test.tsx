@@ -126,3 +126,33 @@ describe('footer', () => {
     expect(screen.getByRole('link', { name: 'Terms' })).toHaveAttribute('href', 'https://scda-hub.pages.dev/#terms');
   });
 });
+
+describe('getting-started guide', () => {
+  it('shows once per tool, steps through, and reopens from the ? button', async () => {
+    const { default: userEvent } = await import('@testing-library/user-event');
+    const user = userEvent.setup();
+    localStorage.clear();
+    const { GUIDES } = await import('@orgtools/ui');
+    const view = () => render(<PlatformProvider env={off}><AppShell tool="trade"><p>body</p></AppShell></PlatformProvider>);
+    const { unmount } = view();
+    const g = screen.getByRole('region', { name: 'Getting started' });
+    expect(g).toHaveTextContent(GUIDES.trade[0].title);
+    await user.click(screen.getByRole('button', { name: 'Next' }));
+    expect(g).toHaveTextContent(`2 / ${GUIDES.trade.length}`);
+    await user.click(screen.getByRole('button', { name: 'Next' }));
+    await user.click(screen.getByRole('button', { name: 'Got it' }));
+    expect(screen.queryByRole('region', { name: 'Getting started' })).toBeNull();
+    unmount();
+    view();
+    expect(screen.queryByRole('region', { name: 'Getting started' })).toBeNull(); // remembered
+    await user.click(screen.getByRole('button', { name: 'How this works' }));
+    expect(screen.getByRole('region', { name: 'Getting started' })).toHaveTextContent(GUIDES.trade[0].title);
+    await user.click(screen.getByRole('button', { name: 'Close guide' }));
+    expect(screen.queryByRole('region', { name: 'Getting started' })).toBeNull();
+  });
+
+  it('has a guide for every tool', async () => {
+    const { GUIDES } = await import('@orgtools/ui');
+    for (const t of TOOLS) expect(GUIDES[t.id]?.length, t.id).toBeGreaterThanOrEqual(3);
+  });
+});

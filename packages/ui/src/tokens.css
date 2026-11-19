@@ -66,3 +66,15 @@ h1, h2, h3 { font-family: var(--ot-font-display); letter-spacing: 0.05em; margin
 .ot-seg { display: inline-flex; border: 1px solid var(--ot-line-2); border-radius: 8px; overflow: hidden; }
 .ot-seg button { background: none; border: 0; color: var(--ot-muted); padding: 6px 12px; font: inherit; cursor: pointer; }
 .ot-seg button.on { background: var(--ot-panel-2); color: var(--ot-text); }
+
+/* ---- getting-started guide */
+.ot-guide { position: relative; margin: 0 0 14px; padding: 14px 16px 12px; border: 1px solid var(--ot-accent); border-radius: 10px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--ot-accent) 14%, var(--ot-panel)), var(--ot-panel)); }
+.ot-guide-x { position: absolute; top: 8px; right: 10px; background: none; border: 0; color: var(--ot-muted); cursor: pointer; font-size: 14px; }
+.ot-guide-step { font-size: 11px; color: var(--ot-muted); text-transform: uppercase; letter-spacing: .06em; }
+.ot-guide-title { margin: 2px 0 4px; font-size: 17px; }
+.ot-guide-body { margin: 0 0 10px; max-width: 70ch; line-height: 1.5; }
+.ot-guide-nav { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.ot-guide-dots i { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--ot-line-2); margin-right: 4px; }
+.ot-guide-dots i.on { background: var(--ot-accent); }
+.ot-help { width: 30px; padding-left: 0; padding-right: 0; justify-content: center; font-weight: 700; }
