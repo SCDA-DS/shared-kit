@@ -49,3 +49,19 @@ h1, h2, h3 { font-family: var(--ot-font-display); letter-spacing: 0.05em; margin
 .ot-menu-list a { display: block; padding: 8px 10px; border-radius: 6px; text-decoration: none; color: var(--ot-text); }
 .ot-menu-list a:hover, .ot-menu-list a.current { background: var(--ot-panel-2); color: var(--ot-accent); }
 .ot-menu-list small { display: block; color: var(--ot-muted); font-size: 11px; }
+.ot-bell { position: relative; }
+.ot-bell > .ot-btn { position: relative; padding: 6px 10px; }
+.ot-badge { position: absolute; top: -4px; right: -4px; background: var(--ot-red); color: #fff; font-size: 10px; font-weight: 700; border-radius: 999px; min-width: 16px; height: 16px; line-height: 16px; text-align: center; padding: 0 4px; }
+.ot-bell-list { position: absolute; right: 0; top: calc(100% + 6px); width: min(340px, calc(100vw - 24px)); max-height: 70vh; overflow: auto; background: var(--ot-panel); border: 1px solid var(--ot-line-2); border-radius: 10px; padding: 6px; z-index: 30; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
+.ot-bell-head { display: flex; justify-content: space-between; align-items: center; padding: 6px 10px; }
+.ot-bell-list a, .ot-bell-item { display: flex; flex-direction: column; gap: 2px; padding: 8px 10px; border-radius: 6px; text-decoration: none; color: var(--ot-text); font-size: 13px; }
+.ot-bell-list a:hover { background: var(--ot-panel-2); }
+.ot-bell-list .unread { border-left: 3px solid var(--ot-accent); }
+.ot-bell-list span { color: var(--ot-muted); }
+.ot-bell-list small { color: var(--ot-muted); font-size: 11px; }
+.ot-linkbtn { background: none; border: 0; padding: 0; color: var(--ot-accent); font: inherit; font-size: inherit; cursor: pointer; text-decoration: underline; }
+.ot-modal-back { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.6); display: flex; align-items: center; justify-content: center; z-index: 50; padding: 12px; }
+.ot-modal { width: min(480px, 100%); padding: 18px; }
+.ot-seg { display: inline-flex; border: 1px solid var(--ot-line-2); border-radius: 8px; overflow: hidden; }
+.ot-seg button { background: none; border: 0; color: var(--ot-muted); padding: 6px 12px; font: inherit; cursor: pointer; }
+.ot-seg button.on { background: var(--ot-panel-2); color: var(--ot-text); }

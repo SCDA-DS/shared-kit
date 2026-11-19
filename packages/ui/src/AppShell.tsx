@@ -2,11 +2,13 @@ import type { ReactNode } from 'react';
 import { usePlatform } from '@orgtools/auth';
 import { PLATFORM_NAME, TOOLS, toolUrl, type ToolId } from './tools';
 import { Button, Note } from './components';
+import { ErrorBoundary, FeedbackButton, NotificationBell, useErrorReporting } from './services';
 
 export function AppShell({ tool, children }: { tool: ToolId; children: ReactNode }) {
   const p = usePlatform();
   const current = TOOLS.find((t) => t.id === tool);
   const name = p.profile?.display_name || p.profile?.username || p.user?.email || 'Pilot';
+  useErrorReporting(tool);
 
   return (
     <>
@@ -47,6 +49,7 @@ export function AppShell({ tool, children }: { tool: ToolId; children: ReactNode
             Sign in with Discord
           </Button>
         )}
+        {p.user && <NotificationBell />}
         {p.user && (
           <>
             {p.profile?.avatar_url && <img className="ot-avatar" src={p.profile.avatar_url} alt="" />}
@@ -64,12 +67,12 @@ export function AppShell({ tool, children }: { tool: ToolId; children: ReactNode
             </Note>
           </div>
         )}
-        {children}
+        <ErrorBoundary tool={tool} sb={p.sb}>{children}</ErrorBoundary>
       </main>
       <footer className="ot-footer">
         Unofficial fan-made tools. Not affiliated with Cloud Imperium Games. Star Citizen® is a registered trademark of
         Cloud Imperium Rights LLC. · <a href={`${toolUrl('hub', p.env)}/#privacy`}>Privacy</a> ·{' '}
-        <a href={`${toolUrl('hub', p.env)}/#terms`}>Terms</a>
+        <a href={`${toolUrl('hub', p.env)}/#terms`}>Terms</a> · <FeedbackButton tool={tool} />
       </footer>
     </>
   );
