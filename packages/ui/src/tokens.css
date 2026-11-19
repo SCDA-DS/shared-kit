@@ -56,6 +56,7 @@ h1, h2, h3 { font-family: var(--ot-font-display); letter-spacing: 0.05em; margin
 .ot-bell-head { display: flex; justify-content: space-between; align-items: center; padding: 6px 10px; }
 .ot-bell-list a, .ot-bell-item { display: flex; flex-direction: column; gap: 2px; padding: 8px 10px; border-radius: 6px; text-decoration: none; color: var(--ot-text); font-size: 13px; }
 .ot-bell-list a:hover { background: var(--ot-panel-2); }
+.ot-bell-list a.ot-bell-foot { color: var(--ot-muted); font-size: 12px; border-top: 1px solid var(--ot-line); border-radius: 0; margin-top: 4px; }
 .ot-bell-list .unread { border-left: 3px solid var(--ot-accent); }
 .ot-bell-list span { color: var(--ot-muted); }
 .ot-bell-list small { color: var(--ot-muted); font-size: 11px; }

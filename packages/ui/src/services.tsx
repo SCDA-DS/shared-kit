@@ -151,6 +151,7 @@ export function NotificationBell({ pollMs = 60_000 }: { pollMs?: number }) {
               <div key={n.id} className={`ot-bell-item ${n.read_at ? '' : 'unread'}`}>{inner}</div>
             );
           })}
+          <a className="ot-bell-foot" href={`${toolUrl('hub', env)}#notifications`}>Get these as Discord DMs →</a>
         </div>
       )}
     </div>
