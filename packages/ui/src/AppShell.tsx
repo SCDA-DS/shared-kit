@@ -2,7 +2,8 @@ import type { ReactNode } from 'react';
 import { usePlatform } from '@orgtools/auth';
 import { PLATFORM_NAME, TOOLS, toolUrl, type ToolId } from './tools';
 import { Button, Note } from './components';
-import { ErrorBoundary, FeedbackButton, NotificationBell, useErrorReporting } from './services';
+import { DonateLink, ErrorBoundary, FeedbackButton, NotificationBell, useErrorReporting } from './services';
+import { ToolIcon } from './icons';
 import { Guide, GUIDES, openGuide } from './guide';
 
 export function AppShell({ tool, children }: { tool: ToolId; children: ReactNode }) {
@@ -18,12 +19,15 @@ export function AppShell({ tool, children }: { tool: ToolId; children: ReactNode
           {PLATFORM_NAME.split(' ').slice(0, -1).join(' ')} <span>{PLATFORM_NAME.split(' ').slice(-1)}</span>
         </a>
         <details className="ot-menu">
-          <summary className="ot-btn">{current?.name ?? 'Tools'} ▾</summary>
+          <summary className="ot-btn"><ToolIcon id={tool} size={18} bare /> {current?.name ?? 'Tools'} ▾</summary>
           <nav className="ot-menu-list">
             {TOOLS.map((t) => (
-              <a key={t.id} href={toolUrl(t.id, p.env)} className={t.id === tool ? 'current' : ''}>
-                {t.name}
-                <small>{t.description}</small>
+              <a key={t.id} href={toolUrl(t.id, p.env)} className={`ot-menu-item${t.id === tool ? ' current' : ''}`}>
+                <ToolIcon id={t.id} size={30} />
+                <span>
+                  {t.name}
+                  <small>{t.description}</small>
+                </span>
               </a>
             ))}
           </nav>
@@ -77,7 +81,7 @@ export function AppShell({ tool, children }: { tool: ToolId; children: ReactNode
       <footer className="ot-footer">
         Unofficial fan-made tools. Not affiliated with Cloud Imperium Games. Star Citizen® is a registered trademark of
         Cloud Imperium Rights LLC. · <a href={`${toolUrl('hub', p.env)}/#privacy`}>Privacy</a> ·{' '}
-        <a href={`${toolUrl('hub', p.env)}/#terms`}>Terms</a> · <FeedbackButton tool={tool} />
+        <a href={`${toolUrl('hub', p.env)}/#terms`}>Terms</a> · <FeedbackButton tool={tool} /> <DonateLink />
       </footer>
     </>
   );

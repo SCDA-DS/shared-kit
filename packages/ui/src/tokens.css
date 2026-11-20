@@ -78,3 +78,11 @@ h1, h2, h3 { font-family: var(--ot-font-display); letter-spacing: 0.05em; margin
 .ot-guide-dots i { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--ot-line-2); margin-right: 4px; }
 .ot-guide-dots i.on { background: var(--ot-accent); }
 .ot-help { width: 30px; padding-left: 0; padding-right: 0; justify-content: center; font-weight: 700; }
+
+/* ---- tool icons + donate */
+.ot-toolicon { flex: none; vertical-align: middle; }
+summary.ot-btn .ot-toolicon { margin: -2px 2px 0 -2px; }
+.ot-menu-list a.ot-menu-item { display: flex; gap: 10px; align-items: flex-start; }
+.ot-menu-list a.ot-menu-item small { display: block; }
+.ot-donate { margin-left: 6px; color: #ef8aa0 !important; text-decoration: none; white-space: nowrap; }
+.ot-donate:hover { text-decoration: underline; }

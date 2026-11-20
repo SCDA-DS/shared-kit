@@ -4,3 +4,4 @@ export * from './AppShell';
 export * from './components';
 export * from './services';
 export * from './guide';
+export * from './icons';

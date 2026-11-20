@@ -158,6 +158,54 @@ export function NotificationBell({ pollMs = 60_000 }: { pollMs?: number }) {
   );
 }
 
+// ---------------------------------------------------------------- donate link
+
+let linksCache: Promise<{ donate_url: string | null }> | null = null;
+const LINKS_KEY = 'ot-site-links';
+
+/** Site-wide links set by admins (currently just the optional donate link). Fetched once per page load. */
+export function useSiteLinks() {
+  const p = usePlatform();
+  const [links, setLinks] = useState<{ donate_url: string | null }>(() => {
+    try {
+      return JSON.parse(sessionStorage.getItem(LINKS_KEY) ?? 'null') ?? { donate_url: null };
+    } catch {
+      return { donate_url: null };
+    }
+  });
+  useEffect(() => {
+    if (!p.sb) return;
+    linksCache ??= Promise.resolve(p.sb.rpc('site_links')).then((r) => ((r.data as { donate_url: string | null } | null) ?? { donate_url: null }), () => ({ donate_url: null }));
+    let alive = true;
+    void linksCache.then((l) => {
+      if (!alive) return;
+      setLinks(l);
+      try {
+        sessionStorage.setItem(LINKS_KEY, JSON.stringify(l));
+      } catch {
+        /* ignore */
+      }
+    });
+    return () => {
+      alive = false;
+    };
+  }, [p.sb]);
+  return links;
+}
+
+const DONATE_RE = /^https:\/\/(www\.)?(ko-fi\.com|buymeacoffee\.com|paypal\.me|paypal\.com\/donate|github\.com\/sponsors|patreon\.com|liberapay\.com|opencollective\.com)\//;
+
+/** "♥ Support the site" — only when an admin has set a donate link. */
+export function DonateLink({ className = '' }: { className?: string }) {
+  const { donate_url } = useSiteLinks();
+  if (!donate_url || !DONATE_RE.test(donate_url)) return null;
+  return (
+    <a className={`ot-donate ${className}`} href={donate_url} target="_blank" rel="noreferrer noopener" title="Optional — helps pay for hosting. Everything stays free.">
+      ♥ Support the site
+    </a>
+  );
+}
+
 // ---------------------------------------------------------------- feedback
 
 export function FeedbackButton({ tool }: { tool: string }) {

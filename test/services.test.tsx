@@ -34,3 +34,23 @@ describe('platform services', () => {
     expect(rpc.mock.calls.length).toBeLessThanOrEqual(5);
   });
 });
+
+describe('donate link and tool icons', () => {
+  it('shows the donate link only for a known donation site', async () => {
+    const { PlatformProvider } = await import('@orgtools/auth');
+    const { DonateLink, ToolIcon, iconSvg } = await import('@orgtools/ui');
+    const off = { supabaseUrl: '', supabaseAnonKey: '' };
+    sessionStorage.setItem('ot-site-links', JSON.stringify({ donate_url: 'https://ko-fi.com/scorgtools' }));
+    const { unmount } = render(<PlatformProvider env={off}><DonateLink /></PlatformProvider>);
+    expect(screen.getByRole('link', { name: /Support the site/ })).toHaveAttribute('href', 'https://ko-fi.com/scorgtools');
+    unmount();
+    sessionStorage.setItem('ot-site-links', JSON.stringify({ donate_url: 'https://evil.example/pay' }));
+    const v2 = render(<PlatformProvider env={off}><DonateLink /></PlatformProvider>);
+    expect(screen.queryByRole('link', { name: /Support the site/ })).toBeNull();
+    v2.unmount();
+    sessionStorage.clear();
+    render(<ToolIcon id="trade" title="Trade Data" />);
+    expect(screen.getByRole('img', { name: 'Trade Data' })).toBeInTheDocument();
+    expect(iconSvg('cargo')).toMatch(/^<svg[^>]+viewBox="0 0 64 64".*#f0a94a/);
+  });
+});
