@@ -19,7 +19,7 @@ export const GUIDES: Record<ToolId, GuideStep[]> = {
     { title: 'Welcome to Cargo Manifest', body: 'Track every SCU you carry and store. Use the menu at the top to switch between your personal cargo and an org\'s.' },
     { title: 'Ships and grids', body: 'Fleet: add your ships to see their cargo grids in 3D and pack lots into them, box by box.' },
     { title: 'What you own, where', body: 'Inventory and Stockpile show every lot and where it is. Add what you paid or sold for at a terminal and Trade Data updates for everyone.' },
-    { title: 'Refinery jobs', body: 'Log ore at a refinery with the time left. You get a notification when it\'s ready, then collect it straight into stock.' },
+    { title: 'Refinery and crafting', body: 'Log refinery jobs and get pinged when they\'re ready. The Crafting tab shows every blueprint, what you can make from your stock, and who in your org can craft the rest.' },
   ],
   fleet: [
     { title: 'Welcome to Fleet Planner', body: 'Your hangar and your org\'s fleet in one place, with a searchable catalogue of every ship.' },
