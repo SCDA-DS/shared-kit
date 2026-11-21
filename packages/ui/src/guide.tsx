@@ -18,7 +18,7 @@ export const GUIDES: Record<ToolId, GuideStep[]> = {
   cargo: [
     { title: 'Welcome to Cargo Manifest', body: 'Track every SCU you carry and store. Use the menu at the top to switch between your personal cargo and an org\'s.' },
     { title: 'Ships and grids', body: 'Fleet: add your ships to see their cargo grids in 3D and pack lots into them, box by box.' },
-    { title: 'What you own, where', body: 'Inventory and Stockpile show every lot and where it is; set targets for what your org wants to keep in stock.' },
+    { title: 'What you own, where', body: 'Inventory and Stockpile show every lot and where it is. Add what you paid or sold for at a terminal and Trade Data updates for everyone.' },
     { title: 'Refinery jobs', body: 'Log ore at a refinery with the time left. You get a notification when it\'s ready, then collect it straight into stock.' },
   ],
   fleet: [
@@ -33,9 +33,9 @@ export const GUIDES: Record<ToolId, GuideStep[]> = {
     { title: 'After the op', body: 'Log income and costs, split the payout by equal shares or custom shares, and write up what happened.' },
   ],
   trade: [
-    { title: 'Welcome to Trade Data', body: 'Live community prices from UEX, refreshed every hour. No sign-in needed to browse.' },
+    { title: 'Welcome to Trade Data', body: 'Prices from UEX, refreshed hourly, plus live reports from players using these tools — the newest wins. No sign-in needed to browse.' },
     { title: 'Find a run', body: 'Routes finds the best one-way runs or round trips for your ship\'s SCU and budget. Prices that look wrong are left out.' },
-    { title: 'Watch a price', body: 'Open a commodity for its price history, and sign in to set an alert — you\'ll be notified when it hits your price.' },
+    { title: 'Watch a price, share a price', body: 'Open a commodity for its price history and set alerts. Seen a different price in game? Report it and it updates for everyone.' },
   ],
   market: [
     { title: 'Welcome to the Resource Exchange', body: 'Buy, sell and post contracts with other players — in-game currency (aUEC) only, never real money.' },
