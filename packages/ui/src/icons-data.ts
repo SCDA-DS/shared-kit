@@ -1,5 +1,5 @@
 /** Kept in step with ToolId in tools.ts (this file is also loaded by plain Node in scripts/make-icons.mjs). */
-type ToolId = 'hub' | 'cargo' | 'fleet' | 'ops' | 'trade' | 'market';
+type ToolId = 'hub' | 'cargo' | 'fleet' | 'ops' | 'trade' | 'market' | 'ships';
 
 /**
  * Tool icons: one badge shape for the whole family, a colour and a line glyph per tool.
@@ -42,6 +42,12 @@ export const TOOL_ICONS: Record<ToolId, { color: string; label: string; glyph: s
     label: 'Resource Exchange',
     // two arrows trading places
     glyph: '<path d="M14 24h33M40 16.5l7.5 7.5-7.5 7.5" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M50 40H17M24 32.5 16.5 40l7.5 7.5" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" opacity=".7"/>',
+  },
+  ships: {
+    color: '#e8c35a',
+    label: 'Ship Matrix',
+    // a ship seen from above inside spec brackets
+    glyph: '<path d="M32 13 39 33l9 7v5l-16-4-16 4v-5l9-7Z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M12 15v-3h6M52 15v-3h-6M12 49v3h6M52 49v3h-6" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" opacity=".6"/>',
   },
 };
 

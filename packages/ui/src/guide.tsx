@@ -42,6 +42,12 @@ export const GUIDES: Record<ToolId, GuideStep[]> = {
     { title: 'Post or respond', body: 'Post what you want or have. Make an offer on someone else\'s post; they accept or decline and you sort out the hand-over on Discord.' },
     { title: 'Trust', body: 'After a trade, both sides confirm and rate it. The badge on each post shows completed trades and how they were rated.' },
   ],
+  ships: [
+    { title: 'Welcome to Ship Matrix', body: 'Every ship and ground vehicle with full specs from the Star Citizen Wiki, refreshed each patch. No sign-in needed.' },
+    { title: 'Filter, sort, choose columns', body: 'Narrow by maker, role, size, crew, cargo, speed or price. Click any column to sort, and pick which columns you see with "Columns".' },
+    { title: 'Compare', body: 'Tick up to four ships and hit Compare — the best value in each row is highlighted. Copy the link to share the comparison.' },
+    { title: 'Where to get it', body: 'Open a ship to see where to buy or rent it in game, its pledge price and loaners. Signed in? Ships in your hangar or org fleet are marked.' },
+  ],
 };
 
 const key = (tool: ToolId) => `ot-guide:${tool}:v${GUIDE_VERSION}`;

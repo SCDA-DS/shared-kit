@@ -1,6 +1,6 @@
 import type { PlatformEnv } from '@orgtools/auth';
 
-export type ToolId = 'hub' | 'cargo' | 'fleet' | 'ops' | 'trade' | 'market';
+export type ToolId = 'hub' | 'cargo' | 'fleet' | 'ops' | 'trade' | 'market' | 'ships';
 
 export interface ToolInfo { id: ToolId; name: string; sub: string; port: number; description: string }
 
@@ -12,6 +12,7 @@ export const TOOLS: ToolInfo[] = [
   { id: 'ops', name: 'Ops Planner', sub: 'ops', port: 5173, description: 'Plan operations — timings, role slots, sign-ups and Discord posting.' },
   { id: 'trade', name: 'Trade Data', sub: 'trade', port: 5174, description: 'Commodity prices, trade routes and margins.' },
   { id: 'market', name: 'Resource Exchange', sub: 'market', port: 5175, description: 'Public board for resource buy/sell orders and contracts with quality requirements.' },
+  { id: 'ships', name: 'Ship Matrix', sub: 'ships', port: 5176, description: 'Every ship and vehicle with full specs — filter, sort, compare side by side, and see where to buy or rent in game.' },
 ];
 
 export const PLATFORM_NAME = 'SC Org Tools';
