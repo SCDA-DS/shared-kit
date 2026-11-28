@@ -42,6 +42,12 @@ export const GUIDES: Record<ToolId, GuideStep[]> = {
     { title: 'Post or respond', body: 'Post what you want or have. Make an offer on someone else\'s post; they accept or decline and you sort out the hand-over on Discord.' },
     { title: 'Trust', body: 'After a trade, both sides confirm and rate it. The badge on each post shows completed trades and how they were rated.' },
   ],
+  crew: [
+    { title: 'Welcome to Crew Link', body: "See your crew live: health, heart rate, downed or dead, ship and location — straight from Star Citizen's own telemetry." },
+    { title: 'Get the app', body: 'Each player runs the small Crew Link app on their PC. It shows exactly what it reads and sends, with a switch for each kind of data.' },
+    { title: 'Link once', body: 'Press "Link this PC" in the app, approve the code here with your Discord sign-in, and pick the org to share with.' },
+    { title: 'Squads', body: 'Officers can make squads (medics, gunners, ground team) to watch a sub-team. Anyone can group the crew by ship.' },
+  ],
   ships: [
     { title: 'Welcome to Ship Matrix', body: 'Every ship and ground vehicle with full specs from the Star Citizen Wiki, refreshed each patch. No sign-in needed.' },
     { title: 'Filter, sort, choose columns', body: 'Narrow by maker, role, size, crew, cargo, speed or price. Click any column to sort, and pick which columns you see with "Columns".' },

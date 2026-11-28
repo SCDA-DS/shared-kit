@@ -77,7 +77,7 @@ export interface AppNotification {
   read_at: string | null;
 }
 
-const TOOL_IDS: ToolId[] = ['hub', 'cargo', 'fleet', 'ops', 'trade', 'market', 'ships'];
+const TOOL_IDS: ToolId[] = ['hub', 'cargo', 'fleet', 'ops', 'trade', 'market', 'ships', 'crew'];
 
 export function ago(iso: string, now = Date.now()) {
   const m = Math.max(0, Math.round((now - new Date(iso).getTime()) / 60000));

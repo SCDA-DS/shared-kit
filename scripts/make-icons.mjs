@@ -13,8 +13,8 @@ import { TOOL_ICONS, iconSvg, BADGE_BG } from '../packages/ui/src/icons-data.ts'
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, '..', '..');
-const REPOS = { hub: 'hub', cargo: 'cargo-manifest', fleet: 'fleet-planner', ops: 'ops-planner', trade: 'trade-data', market: 'resource-exchange', ships: 'ship-matrix' };
-const SUB = { hub: '', cargo: 'cargo', fleet: 'fleet', ops: 'ops', trade: 'trade', market: 'market', ships: 'ships' };
+const REPOS = { hub: 'hub', cargo: 'cargo-manifest', fleet: 'fleet-planner', ops: 'ops-planner', trade: 'trade-data', market: 'resource-exchange', ships: 'ship-matrix', crew: 'crew-link' };
+const SUB = { hub: '', cargo: 'cargo', fleet: 'fleet', ops: 'ops', trade: 'trade', market: 'market', ships: 'ships', crew: 'crew' };
 const TAGLINE = {
   hub: 'Org management, recruitment and a launcher for every tool',
   cargo: 'Cargo grids, inventory, refinery jobs and org stockpiles',
@@ -23,6 +23,7 @@ const TAGLINE = {
   trade: 'Hourly commodity prices, trade routes and price alerts',
   market: 'Buy, sell and contract with other players for aUEC',
   ships: 'Full ship specs, side-by-side compare, where to buy',
+  crew: 'Live crew vitals and status from the game',
 };
 const template = process.env.SITE_TEMPLATE || 'https://scda-{id}.pages.dev';
 const siteUrl = (id) => template.replaceAll('{id}', id).replaceAll('{sub}', SUB[id]).replace(/\/$/, '') + '/';
